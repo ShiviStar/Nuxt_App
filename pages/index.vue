@@ -90,6 +90,7 @@ const loading = ref(false)
 const editDialog = ref(false)
 const editedProduct = ref<Partial<Product> | null>(null)
 
+// function to fetch all products
 const fetchProducts = async () => {
   loading.value = true
   products.value = await $fetch<Product[]>('/api/products/getProducts')
@@ -100,15 +101,18 @@ onMounted(() => {
   fetchProducts()
 })
 
+// function to open edit dialog box
 function openEditDialog(product: Product) {
   editedProduct.value = { ...product }
   editDialog.value = true
 }
 
+// function to format currency
 function formatCurrency(value: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 }
 
+// function to save updated product details
 async function saveEdit() {
   if (!editedProduct.value) return
   await $fetch('/api/products/updateProducts', {
@@ -119,6 +123,7 @@ async function saveEdit() {
   await fetchProducts()
 }
 
+// function to delete product
 async function deleteProduct(id: number) {
   if (!confirm('Are you sure you want to delete this product?')) return
   await $fetch(`/api/products/deleteProducts?id=${id}`, { method: 'DELETE' })
