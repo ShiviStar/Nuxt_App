@@ -72,16 +72,6 @@
   </v-app>
 </template>
 
-<style scoped>
-.text-decoration-none {
-  text-decoration: none;
-}
-.v-data-table thead tr th {
-  color: black !important;
-  font-weight: bold;
-}
-</style>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useHead } from '#imports'
